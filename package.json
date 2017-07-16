@@ -1,0 +1,33 @@
+{
+  "name": "healthy",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "react-scripts-ts": "2.4.0"
+  },
+  "dependencies": {
+    "@types/jest": "^20.0.2",
+    "@types/node": "^8.0.13",
+    "@types/ramda": "^0.24.4",
+    "@types/react": "^15.0.38",
+    "@types/react-dom": "^15.5.1",
+    "@types/react-redux": "^4.4.46",
+    "@types/react-router": "^4.0.14",
+    "@types/redux": "^3.6.0",
+    "@types/semantic-ui": "^2.2.5",
+    "ramda": "^0.24.1",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "react-router": "next",
+    "redux": "^3.7.2",
+    "redux-cycles": "^0.4.1",
+    "semantic-ui-react": "^0.71.0"
+  },
+  "scripts": {
+    "start": "react-scripts-ts start",
+    "build": "react-scripts-ts build",
+    "test": "react-scripts-ts test --env=jsdom",
+    "eject": "react-scripts-ts eject"
+  }
+}
