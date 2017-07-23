@@ -1,22 +1,13 @@
 import * as React from 'react';
-import './App.css';
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
 
-const logo = require('./logo.svg');
+import createHistory from 'history/createBrowserHistory'
+import { Route } from 'react-router'
 
-class App extends React.Component<{}, {}> {
-  render() {
-    return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
-}
+import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+
+
+
 
 export default App;
