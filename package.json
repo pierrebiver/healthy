@@ -4,8 +4,6 @@
   "private": false,
   "main": "index.tsx",
   "devDependencies": {
-    "@types/jest": "^20.0.4",
-    "jest": "^20.0.4",
     "react-scripts-ts": "2.4.0"
   },
   "dependencies": {
@@ -22,6 +20,7 @@
     "moment": "^2.18.1",
     "ramda": "^0.24.1",
     "react": "^15.6.1",
+    "react-apollo": "^1.4.8",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
     "react-router": "next",
@@ -30,7 +29,7 @@
     "redux-cycles": "^0.4.1",
     "redux-thunk": "^2.2.0",
     "semantic-ui": "^2.2.11",
-    "semantic-ui-react": "^0.71.0"
+    "semantic-ui-react": "^0.71.2"
   },
   "scripts": {
     "start": "react-scripts-ts start",

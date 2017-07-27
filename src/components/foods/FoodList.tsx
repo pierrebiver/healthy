@@ -16,6 +16,5 @@ const FoodListComponent = ({foods}: { foods: Food[] }) => (
     </List>
 );
 
-const mapStateToProps =(state) => ({
-   foods: getFoods(state)
-});
+
+export default FoodListComponent
