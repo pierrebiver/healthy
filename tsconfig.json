@@ -27,11 +27,7 @@
     "node_modules",
     "build",
     "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest"
-  ],
-  "include": [
-    "src/**/*"
+    "semantic",
+    "config"
   ]
 }

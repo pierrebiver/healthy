@@ -1,13 +1,13 @@
 import * as React from 'react';
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { Provider } from 'react-redux'
-
-import createHistory from 'history/createBrowserHistory'
-import { Route } from 'react-router'
-
-import { ConnectedRouter, routerReducer, routerMiddleware, push } from 'react-router-redux'
+import {Route, Router} from 'react-router';
+import {Food} from './components/foods/index';
+import createHashHistory from "history/createHashHistory";
 
 
 
+export const App = () => (
+    <Router history={createHashHistory()}>
+        <Route path="/" render={Food}/>
 
-export default App;
+    </Router>
+);
