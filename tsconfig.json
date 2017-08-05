@@ -8,6 +8,9 @@
       "es6",
       "dom"
     ],
+    "paths": {
+      "react": ["node_modules/@types/react"]
+    },
     "sourceMap": true,
     "allowJs": true,
     "jsx": "react",

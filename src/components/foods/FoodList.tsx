@@ -15,26 +15,26 @@ type FoodProps = {
 }
 
 const FoodListComponent = (childProps: ChildProps<FoodProps, any>) => {
+    console.log(childProps);
     if (childProps.data.loading) {
         return <Loader/>
     }
 
     if (childProps.data.error) {
+        console.log(childProps.data.error);
         return <div>
-            {childProps.data.error}
+            {childProps.data.error.message}
         </div>
     }
-    console.log(childProps);
 
     return <List>
         {childProps.foods.map(f => <FoodItem food={f}/>)}
     </List>
 };
 
-
 const ALL_FOODS = gql`
-    query all {
-        allFoods {
+    query allFoods {
+        foods {
             name
             image
             season

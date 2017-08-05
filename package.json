@@ -30,9 +30,9 @@
     "tslint-react": "^3.0.0",
     "typescript": "~2.4.0",
     "url-loader": "0.5.8",
-    "webpack-manifest-plugin": "1.1.0",
     "webpack": "^3.4.1",
     "webpack-dev-server": "^2.6.1",
+    "webpack-manifest-plugin": "1.1.0",
     "whatwg-fetch": "2.0.3"
   },
   "dependencies": {
@@ -43,8 +43,6 @@
     "@types/react-redux": "^4.4.46",
     "@types/react-router": "^4.0.14",
     "@types/react-router-redux": "^5.0.3",
-    "@types/redux": "^3.6.0",
-    "@types/redux-thunk": "^2.1.0",
     "@types/semantic-ui": "^2.2.5",
     "moment": "^2.18.1",
     "ramda": "^0.24.1",
@@ -52,7 +50,7 @@
     "react-apollo": "^1.4.8",
     "react-dom": "^15.6.1",
     "react-redux": "^5.0.5",
-    "react-router": "next",
+    "react-router": "^4.1.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
     "redux-cycles": "^0.4.1",
