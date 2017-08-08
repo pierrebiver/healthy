@@ -6,9 +6,6 @@ import '../semantic/dist/semantic.css';
 
 const networkInterface = createNetworkInterface({
     uri: 'http://localhost:8080/graphql',
-    opts: {
-        mode: 'no-cors'
-    }
 });
 
 

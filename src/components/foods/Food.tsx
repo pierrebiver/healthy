@@ -9,7 +9,6 @@ type FoodProps = {
 
 const FoodComponent = ({food}: FoodProps) => (
     <Card>
-        <Image src={`images/${food.image}`}/>
         <Card.Content>
             <Card.Header>
                 {food.name}
