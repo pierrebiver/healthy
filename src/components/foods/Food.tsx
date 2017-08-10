@@ -1,9 +1,8 @@
 import * as React from 'react'
-import Food from "model/Food";
-import {Card, Image} from 'semantic-ui-react'
+import {Card} from 'semantic-ui-react'
 
 type FoodProps = {
-    food: Food
+    food: any
 }
 
 
@@ -14,8 +13,8 @@ const FoodComponent = ({food}: FoodProps) => (
                 {food.name}
             </Card.Header>
             <Card.Meta>
-        <span >
-            { food.category }
+        <span>
+            {food.category}
         </span>
             </Card.Meta>
         </Card.Content>

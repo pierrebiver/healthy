@@ -1,23 +1,20 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+import {Provider} from 'mobx-react';
+
+import {FoodStore} from "./store/FoodStore";
 import {App} from './App';
-import {ApolloClient, createNetworkInterface, ApolloProvider} from 'react-apollo'
+
+
 import '../semantic/dist/semantic.css';
 
-const networkInterface = createNetworkInterface({
-    uri: 'http://localhost:8080/graphql',
-});
-
-
-const client = new ApolloClient({
-    networkInterface,
-    connectToDevTools: true
-});
-
+const store = {
+    food: FoodStore.create()
+};
 
 ReactDOM.render(
-    <ApolloProvider client={client}>
+    <Provider {...store}>
         <App/>
-    </ApolloProvider>,
+    </Provider>,
     document.getElementById('root') as HTMLElement
 );

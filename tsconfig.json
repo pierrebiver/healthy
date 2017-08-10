@@ -3,7 +3,7 @@
     "outDir": "build/dist",
     "module": "commonjs",
     "target": "es5",
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "lib": [
       "es6",
       "dom"
