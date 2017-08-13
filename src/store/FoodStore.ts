@@ -1,5 +1,4 @@
 import {types,} from 'mobx-state-tree'
-import {Month} from "../model/MomentExtension";
 import client from "../graphql/config";
 import {ALL_FOODS} from "../graphql/FoodQuery";
 import {ApolloQueryResult} from "apollo-client";
@@ -17,21 +16,25 @@ export const Food = types.model(
 
 export type IFood = typeof Food.Type
 
-
 export const FoodStore = types.model(
     {
         foods: types.optional(types.array(Food), []),
-        isLoading: types.optional(types.maybe(types.boolean), true),
+        isLoading: types.optional(types.boolean, true),
         filter: types.maybe(types.string),
         seasonFilter: types.optional(types.array(types.string), []),
         get filteredFoods() {
-            return this.foods.filter((f: IFood) => !this.filter || f.name.search(`/${this.filter}/i`) == 0)
-        },
-        get dropdownModelFoods() {
-            return this.filteredFoods.map((f: IFood) => ({text: f.name, value: f.name}));
+            if (!this.filter) {
+                return this.foods
+            }
+
+            const matchName = (food: IFood) => food.name.toUpperCase().includes(this.filter.toUpperCase());
+            return this.foods.filter(matchName)
         }
     },
     {
+        setFilter(filter: string | undefined) {
+            this.filter = filter;
+        },
         fetchFoods(): Promise<IFood[]> {
             return client.query({
                 query: ALL_FOODS

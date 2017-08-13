@@ -20,8 +20,9 @@ const FoodListComponent = ({foodStore}: { foodStore: IFoodStore }) => {
     }
 
     return <Grid columns={4}>
-        {foodStore.foods.map((f: any) => <FoodItem key={f.id} food={f}/>)}
+        {foodStore.filteredFoods.map((f: any) => <FoodItem key={f.id} food={f}/>)}
     </Grid>
+
 };
 
 export default compose<{ foodStore: IFoodStore }, {}>(
