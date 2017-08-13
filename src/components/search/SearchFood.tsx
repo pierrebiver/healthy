@@ -1,19 +1,17 @@
 import * as React from 'react'
 import {Dropdown} from 'semantic-ui-react';
+import {IFoodStore} from "../../store/FoodStore";
+import {inject, observer} from 'mobx-react';
+import {compose} from "recompose";
 
-type SearchFoodProps = {
-    foods: {
-        text: string;
-        value: string;
-    }[]
-}
 
-const emptyArray: string[] = [];
 //TODO  add filter on months, more detailled card ? with season in grey ?
-const SearchFoodComponent = (props: any) => (
-    <Dropdown placeholder="Search for healthy stuff" fluid loading={props.data.loading} search selection
-              options={props.data.foods || emptyArray} multiple/>
+const SearchFoodComponent = ({foodStore}: { foodStore: IFoodStore }) => (
+    <Dropdown placeholder="Search for healthy stuff" fluid loading={foodStore.isLoading || true} search selection
+              options={foodStore.dropdownModelFoods} multiple/>
 );
 
-
-//export const SearchFood = graphql(ALL_FOODS, {name: 'data'})(SearchFoodComponent);
+export default compose<{ foodStore: IFoodStore }, {}>(
+    inject("foodStore"),
+    observer
+)(SearchFoodComponent)

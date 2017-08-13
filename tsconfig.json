@@ -6,18 +6,22 @@
     "baseUrl": "./src",
     "lib": [
       "es6",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
     "paths": {
-      "react": ["node_modules/@types/react"]
+      "react": [
+        "node_modules/@types/react"
+      ]
     },
     "sourceMap": true,
     "allowJs": true,
+    "experimentalDecorators": true,
     "jsx": "react",
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "noImplicitThis": true,
+    "noImplicitThis": false,
     "rootDirs": [
       "src",
       "node_modules"

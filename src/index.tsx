@@ -1,16 +1,16 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import {Provider} from 'mobx-react';
-
+import {Provider } from 'mobx-react';
 import {FoodStore} from "./store/FoodStore";
 import {App} from './App';
 
-
 import '../semantic/dist/semantic.css';
 
+
 const store = {
-    food: FoodStore.create()
+    foodStore: FoodStore.create()
 };
+
 
 ReactDOM.render(
     <Provider {...store}>

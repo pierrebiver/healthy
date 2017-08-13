@@ -1,12 +1,12 @@
 import * as React from 'react'
-import {Grid, Loader,} from 'semantic-ui-react';
-import {Food} from "store/FoodStore";
+import {Grid, Loader} from 'semantic-ui-react';
 import FoodComponent from "./Food";
 import {inject, observer} from 'mobx-react';
-import {compose, lifecycle} from "recompose";
+import {compose} from "recompose";
+import {IFood, IFoodStore} from "../../store/FoodStore";
 
 
-const FoodItem = ({food}: { food: any }) => (
+const FoodItem = ({food}: { food: IFood }) => (
     <Grid.Column>
         <FoodComponent food={food}/>
     </Grid.Column>
@@ -14,9 +14,9 @@ const FoodItem = ({food}: { food: any }) => (
 
 
 // TODO add filter from searchbar and season
-const FoodListComponent = ({foodStore}: { foodStore: any }) => {
+const FoodListComponent = ({foodStore}: { foodStore: IFoodStore }) => {
     if (foodStore.isLoading) {
-        return <Loader/>
+        return <Loader active/>
     }
 
     return <Grid columns={4}>
@@ -24,17 +24,9 @@ const FoodListComponent = ({foodStore}: { foodStore: any }) => {
     </Grid>
 };
 
-
-const withLifecycle = lifecycle<any, any>({
-    componentDidMount() {
-        this.props.food.loadFoods()
-    }
-});
-
-export default compose<any, any>(
-    inject("food"),
-    observer,
-    withLifecycle
+export default compose<{ foodStore: IFoodStore }, {}>(
+    inject("foodStore"),
+    observer
 )(FoodListComponent)
 
 
