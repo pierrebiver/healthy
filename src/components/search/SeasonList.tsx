@@ -7,24 +7,39 @@ import {IFoodStore} from "../../store/FoodStore";
 import {SyntheticEvent} from "react";
 
 
-// TODO regroup by season ? nice way to display it ?
-export const SeasonListComponent = ({foodStore,onClick}: SeasonListProps & { onClick: (event: SyntheticEvent<any>, data: ButtonProps) => void }) => (
-    <Button.Group>
-        {MonthList.map(m => <Button key={m} active={foodStore.seasonFilter.has(Month[m])} onClick={onClick}
-                                    value={Month[m]}>{Month[m]}</Button>)}
-    </Button.Group>
-);
-
-type SeasonListProps = {
-    foodStore: IFoodStore
-}
-
 const withOnClick = withHandlers({
-    onClick: ({foodStore}: SeasonListProps) => (event: SyntheticEvent<any>, data: ButtonProps) => foodStore.addSeasonFilter(data.value)
+    onClick: ({foodStore}: StoreProps) => (event: SyntheticEvent<any>, data: ButtonProps) => foodStore.addSeasonFilter(data.value)
 });
 
-export const SeasonList = compose<SeasonListProps, {}>(
+type MonthButtonProps = StoreProps & {
+    onClick: (event: SyntheticEvent<any>, data: ButtonProps) => void,
+}
+
+const MonthButtonComponent = ({foodStore, onClick, monthName}: MonthButtonProps & { monthName: string }) => (
+    <Button toggle active={foodStore.seasonFilter.has(monthName)} onClick={onClick}
+            value={monthName}>{monthName}</Button>
+);
+
+const MonthButton = compose<MonthButtonProps, { monthName: string }>(
     inject("foodStore"),
     observer,
     withOnClick
+)(MonthButtonComponent);
+
+
+// TODO regroup by season ? nice way to display it ?
+const SeasonListComponent = ({foodStore}: StoreProps) => (
+    <Button.Group   icon >
+        {MonthList.map(m => <MonthButton key={m} monthName={Month[m]}/>)}
+    </Button.Group>
+);
+
+type StoreProps = {
+    foodStore: IFoodStore
+}
+
+
+export const SeasonList = compose<StoreProps, {}>(
+    inject("foodStore"),
+    observer,
 )(SeasonListComponent);

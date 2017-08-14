@@ -1,15 +1,22 @@
 import * as React from 'react'
-import {Header, Container} from "semantic-ui-react";
+import {Header, Segment} from "semantic-ui-react";
 import FoodList from './FoodList';
 import {SearchBar} from '../search/';
 
+import './index.css';
 
 export const Food = () => (
     <div>
-        <Container text>
-            <Header as="h1" style={{backgroundImage: "url('../../images/healthy-16-9.jpeg')"}}>Welcome to
+        <Segment
+            inverted
+            color="blue"
+            textAlign='center'
+            style={{minHeight: 150, padding: '1em 0em'}}
+            vertical
+        >
+            <Header as="h1">Welcome to
                 Healthy</Header>
-        </Container>
+        </Segment>
         <SearchBar/>
         <FoodList/>
     </div>

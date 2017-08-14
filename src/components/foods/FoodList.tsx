@@ -19,7 +19,7 @@ const FoodListComponent = ({foodStore}: { foodStore: IFoodStore }) => {
         return <Loader active/>
     }
 
-    return <Grid columns={4}>
+    return <Grid columns={4}  style={{ padding: '8em 5em ' }}  >
         {foodStore.filteredFoods.map((f: any) => <FoodItem key={f.id} food={f}/>)}
     </Grid>
 
