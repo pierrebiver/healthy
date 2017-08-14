@@ -1,8 +1,9 @@
 import * as React from 'react'
 import {Card} from 'semantic-ui-react'
+import {IFood} from "../../store/FoodStore";
 
 type FoodProps = {
-    food: any
+    food: IFood
 }
 
 
@@ -17,6 +18,9 @@ const FoodComponent = ({food}: FoodProps) => (
             {food.category}
         </span>
             </Card.Meta>
+            <Card.Description>
+                <span>{`Season: ${food.season}`}</span>
+            </Card.Description>
         </Card.Content>
     </Card>
 );
