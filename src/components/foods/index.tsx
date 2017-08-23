@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Header, Segment} from "semantic-ui-react";
+import {Header, Segment, Divider} from "semantic-ui-react";
 import FoodList from './FoodList';
 import {SearchBar} from '../search/';
 
@@ -14,10 +14,10 @@ export const Food = () => (
             style={{minHeight: 150, padding: '1em 0em'}}
             vertical
         >
-            <Header as="h1">Welcome to
-                Healthy</Header>
+            <Header as="h1">Welcome to Healthy</Header>
+            <Divider/>
+            <SearchBar/>
         </Segment>
-        <SearchBar/>
         <FoodList/>
     </div>
 );

@@ -28,8 +28,8 @@ const MonthButton = compose<MonthButtonProps, { monthName: string }>(
 
 
 // TODO regroup by season ? nice way to display it ?
-const SeasonListComponent = ({foodStore}: StoreProps) => (
-    <Button.Group   icon >
+export const SeasonList = () => (
+    <Button.Group basic inverted >
         {MonthList.map(m => <MonthButton key={m} monthName={Month[m]}/>)}
     </Button.Group>
 );
@@ -38,8 +38,3 @@ type StoreProps = {
     foodStore: IFoodStore
 }
 
-
-export const SeasonList = compose<StoreProps, {}>(
-    inject("foodStore"),
-    observer,
-)(SeasonListComponent);
