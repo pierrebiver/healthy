@@ -1,6 +1,9 @@
 import {types,} from 'mobx-state-tree'
-import client from "../graphql/config";
-import {ALL_FOODS} from "../graphql/FoodQuery";
+import client from "graphql/config";
+
+const ALL_FOODS = require("graphql/FoodQuery.graphql");
+const UPDATE_FOOD = require("graphql/FoodUpdate.graphql");
+const CREATE_FOOD = require("graphql/FoodCreate.graphql");
 import {ApolloQueryResult} from "apollo-client";
 import * as moment from 'moment'
 
@@ -34,7 +37,7 @@ export const FoodStore = types.model(
             const matchFilterSeason = (food: IFood) => this.seasonFilter.keys().length == 0 || this.seasonFilter.keys().some((month: string) => month === food.season);
             const match = (food: IFood) => matchFilterName(food) && matchFilterSeason(food);
             return this.foods.filter(match)
-        }
+        },
     },
     {
         addSeasonFilter(month: string) {
@@ -62,6 +65,9 @@ export const FoodStore = types.model(
         },
         afterCreate() {
             this.loadFoods();
+        },
+        update(id: string, field: string, value: any) {
+            this.foods.find(f => f.id === id)[field] = value
         }
     }
 );

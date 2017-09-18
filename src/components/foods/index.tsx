@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {Header, Segment, Divider} from "semantic-ui-react";
 import FoodList from './FoodList';
-import {SearchBar} from '../search/';
+import {SearchBar} from 'components/search/';
 
 import './index.css';
 

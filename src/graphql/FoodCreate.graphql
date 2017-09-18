@@ -1,0 +1,9 @@
+mutation foodCreate($food: Food!) {
+    foodCreate(food: $food) {
+        id
+        name
+        image
+        season
+        category
+    }
+}

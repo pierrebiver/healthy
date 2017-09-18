@@ -1,17 +1,15 @@
 {
   "compilerOptions": {
     "outDir": "build/dist",
-    "module": "commonjs",
     "target": "es5",
-    "baseUrl": "./src",
+    "baseUrl": "./src/",
     "lib": [
       "es6",
-      "dom",
-      "esnext.asynciterable"
+      "dom"
     ],
     "paths": {
       "react": [
-        "node_modules/@types/react"
+        "../node_modules/@types/react"
       ]
     },
     "sourceMap": true,
@@ -22,10 +20,6 @@
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
-    "rootDirs": [
-      "src",
-      "node_modules"
-    ],
     "noImplicitAny": true,
     "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {List, Button, ButtonProps} from 'semantic-ui-react';
+import { Button, ButtonProps} from 'semantic-ui-react';
 import {MonthList, Month} from '../../model/MomentExtension';
 import {inject, observer} from 'mobx-react';
 import {compose, withHandlers} from "recompose";
@@ -26,8 +26,6 @@ const MonthButton = compose<MonthButtonProps, { monthName: string }>(
     withOnClick
 )(MonthButtonComponent);
 
-
-// TODO regroup by season ? nice way to display it ?
 export const SeasonList = () => (
     <Button.Group basic inverted >
         {MonthList.map(m => <MonthButton key={m} monthName={Month[m]}/>)}
