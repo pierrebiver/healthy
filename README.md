@@ -21,7 +21,6 @@ npm start
 
 Then go to the semantic folder and launch gulp build in order to have semantic dist.
 
-idea todo:
-- group by season filter with icon :smile:
-- add background image
--  add new items, edit one, delete one choose language and traduce automatically ?
+###Todo:
+-   add, edit , delete food
+- deploy on google cloud server
