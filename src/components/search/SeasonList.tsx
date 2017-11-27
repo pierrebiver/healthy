@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, ButtonProps} from 'semantic-ui-react';
+import {Button, ButtonProps} from 'semantic-ui-react';
 import {MonthList, Month} from '../../model/MomentExtension';
 import {inject, observer} from 'mobx-react';
 import {compose, withHandlers} from "recompose";
@@ -22,12 +22,12 @@ const MonthButtonComponent = ({foodStore, onClick, monthName}: MonthButtonProps 
 
 const MonthButton = compose<MonthButtonProps, { monthName: string }>(
     inject("foodStore"),
-    observer,
-    withOnClick
+    withOnClick,
+    observer
 )(MonthButtonComponent);
 
 export const SeasonList = () => (
-    <Button.Group basic inverted >
+    <Button.Group basic inverted>
         {MonthList.map(m => <MonthButton key={m} monthName={Month[m]}/>)}
     </Button.Group>
 );

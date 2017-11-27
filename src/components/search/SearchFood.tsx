@@ -14,11 +14,10 @@ type SearchFoodComponentProps = FoodStoreProps & {
 }
 
 
-//TODO  add filter on months, more detailled card ? with season in grey ?
 const SearchFoodComponent = ({foodStore, onSearchChange}: SearchFoodComponentProps) => {
     return (
         <Search placeholder="Search for healthy stuff" fluid loading={foodStore.isLoading}
-                onSearchChange={onSearchChange}  open={false}
+                onSearchChange={onSearchChange} open={false}
                 value={foodStore.filter || undefined}/>
     );
 };
@@ -29,6 +28,6 @@ const withOnChange = withHandlers({
 
 export default compose<{ foodStore: IFoodStore }, {}>(
     inject("foodStore"),
-    observer,
-    withOnChange
+    withOnChange,
+    observer
 )(SearchFoodComponent)

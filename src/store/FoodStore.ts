@@ -8,7 +8,6 @@ import {ApolloQueryResult} from "apollo-client";
 import * as moment from 'moment'
 
 import {Month} from '../model/MomentExtension';
-import {IObservableArray} from "mobx";
 import {flow} from "mobx-state-tree"
 
 
