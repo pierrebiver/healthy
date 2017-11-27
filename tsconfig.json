@@ -5,7 +5,8 @@
     "baseUrl": "./src/",
     "lib": [
       "es6",
-      "dom"
+      "dom",
+      "esnext.asynciterable"
     ],
     "paths": {
       "react": [

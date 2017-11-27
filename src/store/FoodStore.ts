@@ -27,49 +27,68 @@ export const Food = types.model(
 export type IFood = typeof Food.Type
 
 export const FoodStore = types.model(
+    "FoodStore",
     {
         foods: types.optional(types.array(Food), []),
         isLoading: types.optional(types.boolean, true),
         filter: types.maybe(types.string),
         seasonFilter: types.optional(types.map(types.string), {[currentMonth]: currentMonth}),
-        get filteredFoods() {
-            const matchFilterName = (food: IFood) => !this.filter || food.name.toUpperCase().includes(this.filter.toUpperCase());
-            const matchFilterSeason = (food: IFood) => this.seasonFilter.keys().length == 0 || this.seasonFilter.keys().some((month: string) => month === food.season);
-            const match = (food: IFood) => matchFilterName(food) && matchFilterSeason(food);
-            return this.foods.filter(match)
-        },
-    },
-    {
-        addSeasonFilter(month: string) {
-            if (this.seasonFilter.has(month))
-                this.seasonFilter.delete(month);
-            else
-                this.seasonFilter.set(month, month);
-        },
-        setFilter(filter: string | undefined) {
-            this.filter = filter;
-        },
-        fetchFoods(): Promise<IFood[]> {
+
+    })
+    .views(self => {
+        return {
+            get filteredFoods() {
+                const matchFilterName = (food: IFood) => !self.filter || food.name.toUpperCase().includes(self.filter.toUpperCase());
+                const matchFilterSeason = (food: IFood) => self.seasonFilter.keys().length == 0 || self.seasonFilter.keys().some((month: string) => month === food.season);
+                const match = (food: IFood) => matchFilterName(food) && matchFilterSeason(food);
+                return self.foods.filter(match)
+            }
+        }
+    })
+    .actions((self: any) => {
+        function fetchFoods(): Promise<IFood[]> {
             return client.query({
                 query: ALL_FOODS
             }).then((q: ApolloQueryResult<any>) => q.data.foods)
                 .catch((e) => console.error("Failed to load all foods", e));
-        },
-        fetchFoodsSuccess(foods: IObservableArray<IFood>) {
-            this.isLoading = false;
-            this.foods = foods;
-        },
-        loadFoods() {
-            this.isLoading = true;
-            this.fetchFoods().then((f: IObservableArray<IFood>) => this.fetchFoodsSuccess(f))
-        },
-        afterCreate() {
-            this.loadFoods();
-        },
-        update(id: string, field: string, value: any) {
-            this.foods.find(f => f.id === id)[field] = value
         }
-    }
-);
+
+        function loadFoods() {
+            self.isLoading = true;
+            fetchFoods().then((f: IObservableArray<IFood>) => {
+                //self.isLoading = false;
+                self.foods = f;
+            })
+        }
+
+        return {
+            addSeasonFilter(month: string) {
+                if (self.seasonFilter.has(month))
+                    self.seasonFilter.delete(month);
+                else
+                    self.seasonFilter.set(month, month);
+            },
+            setFilter(filter: string | undefined) {
+                self.filter = filter;
+            },
+            fetchFoods,
+            updateFoods(food: IFood) {
+                client.mutate({
+                    mutation: UPDATE_FOOD,
+                    variables: {food}
+                }).then((result: ApolloQueryResult<{ food: IFood }>) => {
+                    self.foods.replace(result.data.food.$treenode);
+                })
+                    .catch(e => console.error("Failed to update food", e))
+            },
+            loadFoods,
+            afterCreate() {
+                loadFoods();
+            },
+            update(id: string, field: string, value: any) {
+                self.foods.find((f: IFood) => f.id === id)[field] = value
+            }
+        }
+    });
 
 export type IFoodStore = typeof FoodStore.Type
