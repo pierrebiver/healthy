@@ -46,11 +46,19 @@ export const FoodStore = types.model(
         }
     })
     .actions(self => {
-        function fetchFoods(): Promise<IFood[]> {
+        function sendFetchFoods(): Promise<IFood[]> {
             return client.query({
                 query: ALL_FOODS
             }).then((q: ApolloQueryResult<any>) => q.data.foods)
                 .catch((e) => console.error("Failed to load all foods", e));
+        }
+
+        function sendUpdateFood(food: IFood): Promise<IFood | void> {
+            return client.mutate({
+                mutation: UPDATE_FOOD,
+                variables: {food}
+            }).then((result: ApolloQueryResult<{ food: IFood }>) => result.data.food)
+                .catch(e => console.error("Failed to update food", e))
         }
 
         return {
@@ -63,18 +71,13 @@ export const FoodStore = types.model(
             setFilter(filter: string | undefined) {
                 self.filter = filter;
             },
-            updateFoods(food: IFood) {
-                client.mutate({
-                    mutation: UPDATE_FOOD,
-                    variables: {food}
-                }).then((result: ApolloQueryResult<{ food: IFood }>) => {
-                    self.foods.replace(result.data.food.$treenode);
-                })
-                    .catch(e => console.error("Failed to update food", e))
-            },
+            updateFood: flow(function* update(food: IFood) {
+                const foodUpdated = yield sendUpdateFood(food);
+                self.foods.replace(foodUpdated.$treenode);
+            }),
             afterCreate: flow(function* afterCreate() {
                 self.isLoading = true;
-                self.foods = yield fetchFoods();
+                self.foods = yield sendFetchFoods();
                 self.isLoading = false;
             }),
             update(id: string, field: string, value: any) {

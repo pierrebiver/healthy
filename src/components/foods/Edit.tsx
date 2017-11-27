@@ -33,7 +33,7 @@ const EditComponent = ({foodStore, onChange, food}: EditProps) => (
             <Form.Select label="Season" name="season" options={monthListOptions}
                          value={food.season} onChange={onChange}/>
             <Button>Cancel</Button>
-            <Button primary>Save and close</Button>
+            <Button primary onClick={() => foodStore.updateFood(food)}>Save and close</Button>
         </Form>
     </Container>
 );
@@ -45,8 +45,8 @@ type StoreProps = {
 
 const Edit = compose<EditProps, { food: IFood }>(
     inject("foodStore"),
-    observer,
-    withOnChange
+    withOnChange,
+    observer
 )(EditComponent);
 
 export default Edit;
