@@ -9,6 +9,7 @@ import * as moment from 'moment'
 
 import {Month} from '../model/MomentExtension';
 import {IObservableArray} from "mobx";
+import {flow} from "mobx-state-tree"
 
 
 const currentMonth: string = Month[moment().month()];
@@ -45,20 +46,12 @@ export const FoodStore = types.model(
             }
         }
     })
-    .actions((self: any) => {
+    .actions(self => {
         function fetchFoods(): Promise<IFood[]> {
             return client.query({
                 query: ALL_FOODS
             }).then((q: ApolloQueryResult<any>) => q.data.foods)
                 .catch((e) => console.error("Failed to load all foods", e));
-        }
-
-        function loadFoods() {
-            self.isLoading = true;
-            fetchFoods().then((f: IObservableArray<IFood>) => {
-                //self.isLoading = false;
-                self.foods = f;
-            })
         }
 
         return {
@@ -71,7 +64,6 @@ export const FoodStore = types.model(
             setFilter(filter: string | undefined) {
                 self.filter = filter;
             },
-            fetchFoods,
             updateFoods(food: IFood) {
                 client.mutate({
                     mutation: UPDATE_FOOD,
@@ -81,10 +73,11 @@ export const FoodStore = types.model(
                 })
                     .catch(e => console.error("Failed to update food", e))
             },
-            loadFoods,
-            afterCreate() {
-                loadFoods();
-            },
+            afterCreate: flow(function* afterCreate() {
+                self.isLoading = true;
+                self.foods = yield fetchFoods();
+                self.isLoading = false;
+            }),
             update(id: string, field: string, value: any) {
                 self.foods.find((f: IFood) => f.id === id)[field] = value
             }
