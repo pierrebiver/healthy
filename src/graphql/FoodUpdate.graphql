@@ -1,8 +1,7 @@
-mutation  foodUpdate {
-    foodUpdate(food: Food) {
+mutation foodUpdate($food: FoodInput!) {
+    foodUpdate(food: $food) {
         id
         name
-        image
         season
         category
     }

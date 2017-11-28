@@ -2,7 +2,6 @@ query allFoods {
     foods {
         id
         name
-        image
         season
         category
     }

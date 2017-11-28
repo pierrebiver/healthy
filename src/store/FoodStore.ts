@@ -57,7 +57,7 @@ export const FoodStore = types.model(
             return client.mutate({
                 mutation: UPDATE_FOOD,
                 variables: {food}
-            }).then((result: ApolloQueryResult<{ food: IFood }>) => result.data.food)
+            }).then((result: ApolloQueryResult<{ foodUpdate: IFood }>) => result.data.foodUpdate)
                 .catch(e => console.error("Failed to update food", e))
         }
 
