@@ -10,7 +10,8 @@ import {inject, observer} from "mobx-react";
 type EditProps = {
     foodStore: IFoodStore,
     food: IFood,
-    onChange: (event: SyntheticEvent<any>, data: InputProps | SelectProps) => void
+    onChange: (event: SyntheticEvent<any>, data: InputProps | SelectProps) => void,
+    onClose: Function;
 }
 
 const categoryOptions = [
@@ -24,7 +25,7 @@ const withOnChange = withHandlers({
     onChange: ({foodStore, food}: StoreProps) => (event: SyntheticEvent<any>, data: InputProps | SelectProps) => foodStore.update(food.id.toString(), data.name, data.value)
 });
 
-const EditComponent = ({foodStore, onChange, food}: EditProps) => (
+const EditComponent = ({foodStore, onChange, food, onClose}: EditProps) => (
     <Container>
         <Form>
             <Form.Input label="Name" name="name" value={food.name} onChange={onChange}/>
@@ -32,7 +33,10 @@ const EditComponent = ({foodStore, onChange, food}: EditProps) => (
                          value={food.category} onChange={onChange}/>
             <Form.Select label="Season" name="season" options={monthListOptions}
                          value={food.season} onChange={onChange}/>
-            <Button primary onClick={() => foodStore.updateFood(food)}>Save and close</Button>
+            <Button primary onClick={() => {
+                foodStore.updateFood(food);
+                onClose();
+            }}>Save and close</Button>
         </Form>
     </Container>
 );
@@ -42,7 +46,7 @@ type StoreProps = {
     food: IFood,
 }
 
-const Edit = compose<EditProps, { food: IFood }>(
+const Edit = compose<EditProps, { food: IFood, onClose: (open: boolean) => void }>(
     inject("foodStore"),
     withOnChange,
     observer

@@ -2,14 +2,16 @@ import * as React from 'react'
 import {Button, Card, Modal} from 'semantic-ui-react'
 import {IFood} from "store/FoodStore";
 import Edit from "./Edit";
-import {compose} from "recompose";
+import {compose, withState} from "recompose";
 import {observer} from "mobx-react";
 
 type FoodProps = {
     food: IFood
 }
 
-const FoodComponent = ({food}: FoodProps) => (
+const withModalState = withState("open", "setOpen", false);
+
+const FoodComponent = ({food, setOpen, open}: FoodProps & { setOpen: (open: boolean) => void, open: boolean }) => (
     <Card>
         <Card.Content>
             <Card.Header>
@@ -22,10 +24,11 @@ const FoodComponent = ({food}: FoodProps) => (
             </Card.Meta>
             <Card.Description>
                 <span>{`Season: ${food.season}`}</span>
-                <Modal trigger={<Button floated="right" icon="edit"/>} closeIcon closeOnDimmerClick={false}>
+                <Modal trigger={<Button floated="right" icon="edit" onClick={() => setOpen(true)}/>} open={open}
+                       closeIcon closeOnDimmerClick={false}>
                     <Modal.Header>Edit food</Modal.Header>
                     <Modal.Content>
-                        <Edit food={food}/>
+                        <Edit food={food} onClose={() => setOpen(false)}/>
                     </Modal.Content>
                 </Modal>
             </Card.Description>
@@ -33,4 +36,7 @@ const FoodComponent = ({food}: FoodProps) => (
     </Card>
 );
 
-export default compose<FoodProps, FoodProps>(observer)(FoodComponent);
+export default compose<FoodProps, FoodProps>(
+    withModalState,
+    observer
+)(FoodComponent);
