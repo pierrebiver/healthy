@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {Grid, Loader, Transition} from 'semantic-ui-react';
+import {Grid, Loader} from 'semantic-ui-react';
 import FoodComponent from "./Food";
 import {inject, observer} from 'mobx-react';
 import {compose} from "recompose";

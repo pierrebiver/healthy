@@ -42,6 +42,9 @@ export const FoodStore = types.model(
                 const matchFilterSeason = (food: IFood) => self.seasonFilter.keys().length == 0 || self.seasonFilter.keys().some((month: string) => month === food.season);
                 const match = (food: IFood) => matchFilterName(food) && matchFilterSeason(food);
                 return self.foods.filter(match)
+            },
+            find(foodId: string) {
+                return self.foods[foodId];
             }
         }
     })
@@ -73,7 +76,6 @@ export const FoodStore = types.model(
             },
             updateFood: flow(function* update(food: IFood) {
                 const foodUpdated = yield sendUpdateFood(food);
-                self.foods.replace(foodUpdated.$treenode);
             }),
             afterCreate: flow(function* afterCreate() {
                 self.isLoading = true;
